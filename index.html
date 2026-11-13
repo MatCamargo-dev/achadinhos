@@ -47,6 +47,8 @@ ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(
 .nome { margin-top: 10px; font-weight: 600; font-size: .95rem; text-wrap: pretty; }
 .ir { margin-top: 10px; font-weight: 700; font-size: .85rem; color: var(--lona-escura); }
 .vazio { text-align: center; color: var(--tinta-suave); padding: 40px 0; }
+.achou { min-height: 1.45em; margin-top: 12px; font-weight: 600; color: #fff; }
+.achou:empty { margin-top: 0; }
 footer { text-align: center; font-size: .8rem; color: var(--tinta-suave); padding: 0 16px 32px; }
 @media (prefers-reduced-motion: reduce) { .item a { transition: none; } }
 </style>
@@ -55,10 +57,11 @@ footer { text-align: center; font-size: .8rem; color: var(--tinta-suave); paddin
 <header>
   <h1>Achadinhos</h1>
   <p>Os produtos dos vídeos, pelo número do item.</p>
-  <form class="busca" onsubmit="var n=this.n.value.replace(/\D/g,'');if(n){location.hash=n;var e=document.getElementById(n);if(e)e.scrollIntoView({block:'center'});}return false;">
+  <form class="busca" id="busca">
     <input name="n" inputmode="numeric" placeholder="nº do item" aria-label="Número do item que apareceu no vídeo">
     <button>Achar</button>
   </form>
+  <p class="achou" id="achou" role="status" aria-live="polite"></p>
 </header>
 <main>
   <p class="aviso">#publi · Os links são de afiliado: se você comprar, ganhamos uma comissão, sem custo extra para você. O preço e o frete aparecem atualizados na loja.</p>
@@ -67,5 +70,28 @@ footer { text-align: center; font-size: .8rem; color: var(--tinta-suave); paddin
   <p class="vazio">Nenhum item por enquanto.</p>
 </main>
 <footer>0 itens · Vídeos produzidos com IA.</footer>
+<script>
+(function () {
+  var form = document.getElementById('busca'), msg = document.getElementById('achou');
+  function achar(n) {
+    var e = n && document.getElementById(n);
+    if (e) {
+      msg.textContent = '';
+      e.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      e.querySelector('a').focus({ preventScroll: true });
+    } else if (n) {
+      msg.textContent = 'O item ' + n + ' ainda não está na vitrine. Confira o número no vídeo ou volte mais tarde.';
+    }
+  }
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var n = form.n.value.replace(/\D/g, '');
+    if (!n) { msg.textContent = 'Digite o número do item que apareceu no vídeo.'; return; }
+    history.replaceState(null, '', '#' + n);
+    achar(n);
+  });
+  if (location.hash.length > 1) achar(location.hash.slice(1).replace(/\D/g, ''));
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Achadinhos</title>
+<meta name="description" content="Os produtos dos vídeos, pelo número do item.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lona: #1c4f9c; --lona-escura: #163f7d; --papel: #f6f4ee; --cartolina: #f5ef4d; --tinta: #1b1a17;
+  --tinta-suave: #5a564d; --linha: #e4dccb; --barbante: #b9a27a;
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; }
+body { background: var(--papel); color: var(--tinta); font: 16px/1.45 "Archivo", system-ui, -apple-system, "Segoe UI",
+       Roboto, sans-serif; min-height: 100vh; }
+header { background: var(--lona); color: #fff; padding: 28px 16px 22px; text-align: center;
+         background-image: repeating-linear-gradient(90deg, transparent 0 22px, rgba(255,255,255,.07) 22px 44px); }
+h1 { font: 700 2.4rem/1 "Barlow Condensed", "Arial Narrow", sans-serif; letter-spacing: .01em; text-transform: uppercase; }
+header p { margin-top: 6px; color: #dbe6f5; }
+.busca { display: flex; gap: 8px; justify-content: center; margin-top: 16px; }
+.busca input { width: 7.5rem; font: 700 1.25rem "Barlow Condensed", "Arial Narrow", sans-serif; text-align: center;
+               padding: 8px 10px; border: 0; border-radius: 6px; color: var(--tinta); }
+.busca button { font: 700 1rem "Archivo", system-ui, sans-serif; padding: 8px 14px; border: 0; border-radius: 6px;
+                background: var(--cartolina); color: var(--tinta); cursor: pointer; }
+main { max-width: 720px; margin: 0 auto; padding: 20px 16px 40px; }
+.aviso { font-size: .85rem; color: var(--tinta-suave); text-align: center; margin-bottom: 18px; }
+ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+.item a { position: relative; display: grid; grid-template-rows: auto auto 1fr auto; height: 100%; text-decoration: none;
+          color: inherit; background: #fff; border: 1px solid var(--linha); border-radius: 10px; padding: 12px;
+          transition: transform .16s ease-out, box-shadow .16s ease-out; }
+.item a:active { transform: scale(.98); }
+@media (hover: hover) { .item a:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(27,26,23,.10); } }
+.item:target a { outline: 3px solid var(--cartolina); outline-offset: 2px; }
+.num { justify-self: start; display: inline-flex; align-items: baseline; gap: 4px; background: var(--cartolina);
+       font: 700 1.6rem/1 "Barlow Condensed", "Arial Narrow", sans-serif; padding: 4px 10px 4px 16px; border-radius: 4px;
+       position: relative; margin-bottom: 10px; }
+.num::before { content: ""; position: absolute; left: 6px; top: 50%; width: 5px; height: 5px; margin-top: -2.5px;
+               border-radius: 50%; background: var(--papel); box-shadow: 0 0 0 1px var(--barbante); }
+.num small { font: 600 .7rem "Archivo", system-ui, sans-serif; text-transform: uppercase; letter-spacing: .06em; }
+.foto { display: block; aspect-ratio: 1; background: var(--papel); border-radius: 6px; overflow: hidden; }
+.foto img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.nome { margin-top: 10px; font-weight: 600; font-size: .95rem; text-wrap: pretty; }
+.ir { margin-top: 10px; font-weight: 700; font-size: .85rem; color: var(--lona-escura); }
+.vazio { text-align: center; color: var(--tinta-suave); padding: 40px 0; }
+footer { text-align: center; font-size: .8rem; color: var(--tinta-suave); padding: 0 16px 32px; }
+@media (prefers-reduced-motion: reduce) { .item a { transition: none; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Achadinhos</h1>
+  <p>Os produtos dos vídeos, pelo número do item.</p>
+  <form class="busca" onsubmit="var n=this.n.value.replace(/\D/g,'');if(n){location.hash=n;var e=document.getElementById(n);if(e)e.scrollIntoView({block:'center'});}return false;">
+    <input name="n" inputmode="numeric" placeholder="nº do item" aria-label="Número do item que apareceu no vídeo">
+    <button>Achar</button>
+  </form>
+</header>
+<main>
+  <p class="aviso">#publi · Os links são de afiliado: se você comprar, ganhamos uma comissão, sem custo extra para você. O preço e o frete aparecem atualizados na loja.</p>
+  <ul>
+  </ul>
+  <p class="vazio">Nenhum item por enquanto.</p>
+</main>
+<footer>0 itens · Vídeos produzidos com IA.</footer>
+</body>
+</html>
